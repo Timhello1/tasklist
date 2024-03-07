@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table){
-            $table->id();
-            $table->string('tytul');
-            $table->string('opis');
-            $table->enum('status', ['w trakcie', 'nowe', 'zakończone'])->default('nowe');
-            $table->timestamps();
+        Schema::table('tasks', function (Blueprint $table) {
+            $table->renameColumn('tytuł', 'tytul');
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('tasks', function (Blueprint $table) {
+            $table->renameColumn('tytuł', 'tytul');
+        });
     }
 };

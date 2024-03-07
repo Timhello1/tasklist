@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table){
-            $table->id();
-            $table->string('tytul');
-            $table->string('opis');
-            $table->enum('status', ['w trakcie', 'nowe', 'zakończone'])->default('nowe');
-            $table->timestamps();
+        Schema::table('tasks', function (Blueprint $table) {
+            
+
+            // Add a new 'status' column with updated enum values
+            $table->enum('status', ['w trakcie', 'nowe', 'zakonczone'])->default('nowe');
         });
     }
 

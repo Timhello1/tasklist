@@ -23,12 +23,26 @@ class TaskController extends Controller
                 ],404);
         }
     }
+    public function showSpecific($name){
+        $tasks = Task::where('uzytkownik',$name)->get();
+        if($tasks->count() > 0){
+            return response()->json([
+                'status' => 200,
+                'tasks' => $tasks
+                ],200);
+        }else{
+            return response()->json([
+                'status' => 404,
+                'status_message' => 'brak zadan'
+                ],404);
+        }
+    }
     public function store(Request $request){
         $validator = Validator::make($request->all(),[
-            'tytuł'=> 'required|string|max:191',
+            'tytul'=> 'required|string|max:191',
             'opis'=> 'required|string|max:191',
             'uzytkownik'=> 'required|string|max:191',
-            'status'=> 'required|in:w trakcie,nowe,zakończone',   
+            'status'=> 'required|in:w trakcie,nowe,zakonczone',   
         ]);
         if($validator->fails()){
             return response()->json([
@@ -37,7 +51,7 @@ class TaskController extends Controller
             ],422);
         }else{
             $task = Task::create([
-                'tytuł'=> $request->tytuł,
+                'tytul'=> $request->tytul,
                 'opis'=> $request->opis,
                 'uzytkownik'=> $request->uzytkownik,
                 'status'=> $request->status,
@@ -87,10 +101,10 @@ class TaskController extends Controller
     }
     public function update(Request $request, int $id){
         $validator = Validator::make($request->all(),[
-            'tytuł'=> 'required|string|max:191',
+            'tytul'=> 'required|string|max:191',
             'opis'=> 'required|string|max:191',
             'uzytkownik'=> 'required|string|max:191',
-            'status'=> 'required|in:w trakcie,nowe,zakończone',   
+            'status'=> 'required|in:w trakcie,nowe,zakonczone',   
         ]);
         if($validator->fails()){
             return response()->json([
@@ -103,7 +117,7 @@ class TaskController extends Controller
             if($task){
 
                 $task->update([
-                    'tytuł'=> $request->tytuł,
+                    'tytul'=> $request->tytul,
                     'opis'=> $request->opis,
                     'uzytkownik'=> $request->uzytkownik,
                     'status'=> $request->status,

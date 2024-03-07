@@ -13,13 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table){
-            $table->id();
-            $table->string('tytul');
-            $table->string('opis');
-            $table->enum('status', ['w trakcie', 'nowe', 'zakończone'])->default('nowe');
-            $table->timestamps();
-        });
+        DB::statement('ALTER TABLE tasks CHANGE COLUMN `tytuł` `tytul` VARCHAR(255)');
     }
 
     /**
@@ -29,6 +23,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        DB::statement('ALTER TABLE tasks CHANGE COLUMN `tytuł` `tytul` VARCHAR(255)');
     }
 };
