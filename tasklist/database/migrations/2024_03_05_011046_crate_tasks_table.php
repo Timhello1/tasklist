@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('tytul');
             $table->string('opis');
-            $table->enum('status', ['w trakcie', 'nowe', 'zakończone'])->default('nowe');
+            $table->string('uzytkownik');
+            $table->enum('status', ['w trakcie', 'nowe', 'zakonczone'])->default('nowe');
             $table->timestamps();
         });
     }
